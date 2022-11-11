@@ -9,10 +9,12 @@ import {
 } from '@mui/icons-material'
 
 import { shades } from '../../theme'
+import { setIsCartOpen } from '../../state'
 
 export default function Navbar() {
   const navigate = useNavigate()
-  const dipatch = useDispatch()
+  const dispatch = useDispatch()
+  const cart = useSelector((state) => state.cart.cart)
 
   return (
     <Box
@@ -41,7 +43,46 @@ export default function Navbar() {
         >
           ECOM
         </Box>
-        <Box></Box>
+        <Box
+          display='flex'
+          justifyContent='space-between'
+          columnGap='20px'
+          zIndex='2'
+        >
+          <IconButton sx={{ color: 'black' }}>
+            <SearchOutlined />
+          </IconButton>
+
+          <IconButton sx={{ color: 'black' }}>
+            <PersonOutline />
+          </IconButton>
+
+          <Badge
+            badgeContent={cart.length}
+            color='secondary'
+            invisible={cart.length === 0}
+            sx={{
+              '& .MuiBadge-badge': {
+                right: 5,
+                top: 5,
+                minWidth: '13px',
+                height: '14px',
+                p: '0 4px',
+              },
+            }}
+          >
+            <IconButton
+              sx={{ color: 'black' }}
+              onClick={() => dispatch(setIsCartOpen())}
+            >
+              <ShoppingBagOutlined />
+            </IconButton>
+          </Badge>
+
+          <IconButton sx={{ color: 'black' }}>
+            <MenuOutlined />
+          </IconButton>
+        </Box>
       </Box>
     </Box>
   )
