@@ -22,15 +22,20 @@ export default function ShoppingList() {
 
   useEffect(() => {
     const getItems = async () => {
-      const response = await axios.get(
-        'http://localhost:1337/api/items?populate=image'
-      )
+      try {
+        const res = await axios.get(
+          'http://localhost:1337/api/items?populate=image'
+        )
 
-      dispatch(setItems(response.data))
+        dispatch(setItems(res.data.data))
+      } catch (err) {
+        console.log(err)
+      }
     }
 
     getItems()
-  }, [dispatch])
+    // eslint-disable-next-line
+  }, [])
 
   const newArrivalsItems = items.filter(
     (item) => item.attributes.category === 'newArrivals'
@@ -70,7 +75,7 @@ export default function ShoppingList() {
       </Tabs>
       <Box
         display='grid'
-        gridTemplateColumns='repeat(auto-fill, 300px))'
+        gridTemplateColumns='repeat(auto-fill, 300px)'
         justifyContent='space-around'
         rowGap='20px'
         columnGap='1.33%'

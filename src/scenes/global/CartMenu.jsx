@@ -134,6 +134,9 @@ export default function CartMenu() {
             <Button
               sx={{
                 backgroundColor: shades.primary[400],
+                ':hover': {
+                  backgroundColor: shades.primary[200],
+                },
                 color: 'white',
                 minWidth: '100%',
                 p: '20px 40px',

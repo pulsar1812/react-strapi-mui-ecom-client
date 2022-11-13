@@ -41,7 +41,7 @@ export default function Navbar() {
           sx={{ '&:hover': { cursor: 'pointer' } }}
           color={shades.secondary[500]}
         >
-          ECOM
+          VALUE HUNTER
         </Box>
         <Box
           display='flex'
