@@ -73,6 +73,7 @@ export default function ItemDetails() {
             </Typography>
           </Box>
 
+          {/* Count and Button */}
           <Box display='flex' alignItems='center' minHeight='50px'>
             <Box
               display='flex'
@@ -105,6 +106,46 @@ export default function ItemDetails() {
               Add to Cart
             </Button>
           </Box>
+
+          <Box>
+            <Box display='flex' m='20px 0 5px 0'>
+              <FavoriteBorderOutlined />
+              <Typography sx={{ ml: '5px' }}>Add to Wishlist</Typography>
+            </Box>
+            <Typography>Categories: {item?.attributes?.category}</Typography>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* Information */}
+      <Box m='20px 0'>
+        <Tabs value={value} onChange={handleChange}>
+          <Tab value='description' label='Description' />
+          <Tab value='reviews' label='Reviews' />
+        </Tabs>
+      </Box>
+      <Box>
+        {value === 'description' && (
+          <div>{item?.attributes?.longDescription}</div>
+        )}
+        {value === 'reviews' && <div>reviews</div>}
+      </Box>
+
+      {/* Related Items */}
+      <Box width='100%' mt='50px'>
+        <Typography variant='h3' fontWeight='bold'>
+          Related Products
+        </Typography>
+        <Box
+          display='flex'
+          flexWrap='wrap'
+          justifyContent='space-between'
+          columnGap='1.33%'
+          mt='20px'
+        >
+          {items.slice(0, 4).map((item, index) => (
+            <Item key={`${item.name}-${index}`} item={item} />
+          ))}
         </Box>
       </Box>
     </Box>
