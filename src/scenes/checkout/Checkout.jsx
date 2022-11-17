@@ -114,26 +114,29 @@ export default function Checkout() {
 
   const makePayment = async (values) => {
     const stripe = await stripePromise
-    const body = {
+    const body = JSON.stringify({
       userName: [values.firstName, values.lastName].join(' '),
       email: values.email,
       products: cart.map(({ id, count }) => ({
         id,
         count,
       })),
-    }
-
-    const { data } = await axios.post('http://localhost:1337/api/orders', {
-      headers: {
-        'Content-Type': 'application/jons',
-      },
-      body: JSON.stringify(body),
     })
 
-    const session = data.data
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    const { data } = await axios.post(
+      'http://localhost:1337/api/orders',
+      body,
+      config
+    )
 
     await stripe.redirectToCheckout({
-      sessionId: session.id,
+      sessionId: data.id,
     })
   }
 
@@ -214,7 +217,7 @@ export default function Checkout() {
                     borderRadius: 0,
                   }}
                 >
-                  {!isSecondStep ? 'Next' : 'Back'}
+                  {!isSecondStep ? 'Next' : 'Place Order'}
                 </Button>
               </Box>
             </form>
