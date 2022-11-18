@@ -14,8 +14,6 @@ export default function ShoppingList() {
 
   const isNonMobile = useMediaQuery('(min-width:600px)')
 
-  console.log(items)
-
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
